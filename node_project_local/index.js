@@ -17,3 +17,12 @@ function getTodos(){
 function saveTodos(todos){
     fs.writeFileSync(TODOS_FILE, JSON.stringify(todos, null, 2))
 }
+
+//----------------
+
+//GET
+app.get('./todos', (req, res) => {
+    const todos = getTodos()
+    res.json(todos)
+})
+
