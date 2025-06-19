@@ -26,3 +26,18 @@ app.get('./todos', (req, res) => {
     res.json(todos)
 })
 
+//POST(Add)
+app.post('./todo', (req, res) => {
+    const todos = getTodos();
+
+    const newTodo = {
+        id: Date.now(),
+        title: req.body.title,
+        completed: false
+    };
+
+    todos.push(newTodo)
+    saveTodos(todos);
+    res.status(201).json(newTodo);
+})
+
