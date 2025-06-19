@@ -59,3 +59,22 @@ app.put('/todo/:id', (req, res) => {
     res.json(todo)
 })
 
+//DELETE(remove)
+app.delete('/todo/:id', (req, res) => {
+    const todos = getTodos();
+    const id = parseInt(req.params.id) 
+
+    const newTodos = todos.filter(t => t.id !== id)
+    if(newTodos.length === todos.length){
+        return res.status(404).json({ error: 'Todo not found' })
+    }
+
+    saveTodos(newTodos)
+    res.json({ message: 'Todo deleted'})
+})
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`)
+})
+
+app.use(express.static('public'));
