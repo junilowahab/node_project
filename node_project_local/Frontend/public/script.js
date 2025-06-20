@@ -2,8 +2,10 @@ const form = document.getElementById('todoForm');
 const titleInput = document.getElementById('title');
 const todoList = document.getElementById('todoList');
 
+const BACKEND_URL = 'https://backend-node-project-xq7j.onrender.com';
+
 const loadTodos = async () => {
-  const res = await fetch('/todos');
+  const res = await fetch(`${BACKEND_URL}/todos`);
   const todos = await res.json();
 
   todoList.innerHTML = '';
@@ -23,7 +25,7 @@ form.addEventListener('submit', async (e) => {
   const title = titleInput.value.trim();
   if (!title) return;
 
-  await fetch('/todos', {
+  await fetch(`${BACKEND_URL}/todos`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ title })
@@ -34,7 +36,7 @@ form.addEventListener('submit', async (e) => {
 });
 
 const deleteTodo = async (id) => {
-  await fetch(`/todos/${id}`, { method: 'DELETE' });
+  await fetch(`${BACKEND_URL}/todos/${id}`, { method: 'DELETE' });
   loadTodos();
 };
 
