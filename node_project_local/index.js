@@ -7,6 +7,7 @@ const PORT = 3000;                              //Set the port where the server 
 const TODOS_FILE = './todos.json'               //Pathe to the file storage
 
 app.use(bodyParser.json())
+app.use(express.static('public'));
 
 
 function getTodos(){
@@ -21,13 +22,13 @@ function saveTodos(todos){
 //----------------
 
 //GET
-app.get('./todos', (req, res) => {
+app.get('/todos', (req, res) => {
     const todos = getTodos()
     res.json(todos)
 })
 
 //POST(Add)
-app.post('./todo', (req, res) => {
+app.post('/todos', (req, res) => {
     const todos = getTodos();
 
     const newTodo = {
@@ -42,7 +43,7 @@ app.post('./todo', (req, res) => {
 })
 
 //PUT(Update)
-app.put('/todo/:id', (req, res) => {
+app.put('/todos/:id', (req, res) => {
     const todos = getTodos()
     const id = parseInt(req.params.id)
 
@@ -60,7 +61,7 @@ app.put('/todo/:id', (req, res) => {
 })
 
 //DELETE(remove)
-app.delete('/todo/:id', (req, res) => {
+app.delete('/todos/:id', (req, res) => {
     const todos = getTodos();
     const id = parseInt(req.params.id) 
 
@@ -76,5 +77,3 @@ app.delete('/todo/:id', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
-
-app.use(express.static('public'));
